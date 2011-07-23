@@ -32,11 +32,15 @@ class WpbfThread(threading.Thread):
     def run(self):
         while self._queue.qsize() > 0:
             try:
-                word = self._queue.get()
-                logger.debug("Trying with %s", word)
+                object = self._queue.get()
+                """ logger.debug("Trying with %s", word) """
+                object.run(config, username)
+"""
+                This code go to the specific strategy
                 if wp.login(config.username, word):
                     logger.info("Password '%s' found for username '%s' on %s", word, config.username, wp.get_login_url())
-                    self._queue.queue.clear()
+"""
+                self._queue.queue.clear()
                 self._queue.task_done()
             except urllib2.HTTPError, e:
                 logger.debug("HTTP Error: %s for: %s", str(e), word)
